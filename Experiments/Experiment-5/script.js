@@ -1,5 +1,4 @@
 let employees = [];
-// Add Employee
 function addEmployee() {
     let name   = document.getElementById("empName").value.trim();
     let id     = parseInt(document.getElementById("empId").value);
@@ -18,7 +17,6 @@ function addEmployee() {
     showAddMessage(`✅ ${name} added!`, "success");
     clearInputs();
 }
-// Display All
 function displayAllEmployees() {
     if (employees.length === 0) {
         showResult('<div class="empty-state">No employees found</div>');
@@ -40,7 +38,6 @@ function displayAllEmployees() {
     html += "</tbody></table>";
     showResult(html);
 }
-// Filter
 function filterHighSalary() {
     let data = employees.filter(emp => emp.salary > 50000);
     if (data.length === 0) {
@@ -58,7 +55,6 @@ function filterHighSalary() {
     html += "</tbody></table>";
     showResult(html);
 }
-// Total
 function calculateTotalSalary() {
     let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
     showResult(`
@@ -67,7 +63,6 @@ function calculateTotalSalary() {
         <div class="stat-value">₹${total.toLocaleString('en-IN')}</div>
     </div>`);
 }
-// Average
 function calculateAverageSalary() {
     if (employees.length === 0) return;
     let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
@@ -78,7 +73,6 @@ function calculateAverageSalary() {
         <div class="stat-value">₹${avg.toFixed(2)}</div>
     </div>`);
 }
-// Count Dept
 function countByDepartment() {
     let dept = document.getElementById("deptInput").value.trim().toLowerCase();
     let count = employees.filter(emp => emp.department.toLowerCase() === dept).length;
@@ -88,7 +82,6 @@ function countByDepartment() {
         <div class="stat-value">${count}</div>
     </div>`);
 }
-// Helpers
 function showResult(html) {
     let el = document.getElementById("resultArea");
     el.innerHTML = html;
