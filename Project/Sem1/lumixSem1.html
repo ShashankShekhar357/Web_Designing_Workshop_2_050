@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumix Electronics Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            margin: 0;
+        }
+        .main-content {
+            background-color: #f5f5f5;
+        }
+        header {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 2rem;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 2px solid #2563eb;
+            border-radius: 4px;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .nav-actions a {
+            color: #333;
+            text-decoration: none;
+            position: relative;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sub-nav {
+            position: relative;
+            background: #f8f8f8;
+            padding: 0.7rem 2rem;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        #line {
+            display: none;
+        }
+        #menu {
+            display: block;
+            cursor: pointer;
+            color: #333;
+        }
+        .sub-nav-mid {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #bdbdbd;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 0;
+            color: white;
+            text-decoration: none;
+            list-style: none;
+        }
+        #line:checked ~ .sub-nav-mid {
+            display: flex;
+        }
+        .sub-nav a {
+            color: #333;
+            text-decoration: none;
+        }
+        .sub-nav a:hover {
+            color: #2563eb;
+        }
+        .banner {
+            background: #2563eb;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .banner p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        .container {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product-image {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        .product-card h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .product-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        .product-rating {
+            color: #ffa500;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .product-pricing {
+            margin-bottom: 15px;
+        }
+        .price-current {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+        .price-old {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+        .savings {
+            display: inline-block;
+            background: #ff4444;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 0 2rem;
+        }
+        .footer-column h4 {
+            margin-bottom: 1rem;
+            color: #60a5fa;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+        }
+        .footer-column a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #555;
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        @media only screen and (min-width: 1025px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media only screen and (min-width: 601px) and (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .header h1 {
+                font-size: 32px;
+            }
+            .product-card {
+                padding: 20px;
+            }
+        }
+        @media only screen and (max-width: 600px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .container {
+                padding: 15px;
+            }
+            .hero-banner h1 {
+                font-size: 1.8rem;
+            }
+            .hero-banner p {
+                font-size: 14px;
+            }
+            .search-bar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <header>
+        <nav>
+            <div class="logo">Lumix</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+            </div>
+            <div class="nav-actions">
+                <a href="https://secure.newegg.com/login/signin?nextpage=https%3A%2F%2Fwww.newegg.com%2Ftools%2Flaptop-finder%3Fcm_sp%3DHead_Navigation-_-Under_Search_Bar-_-Laptop%2BFinder%26icid%3D779494&_gl=1*5fi1ab*_gcl_au*NjM4NDUwMDgwLjE3NjU5NjQyODY.*_ga*MTkzOTg4NzczMy4xNzY1OTY0Mjg4*_ga_TR46GG8HLR*czE3NjYxNjgwOTAkbzUkZzEkdDE3NjYxNzA4NTEkajYwJGwwJGgxNzA2NDY1Mjk2">Sign In</a>
+                <a href="https://secure.newegg.com/shop/cart?_gl=1*v6cp2b*_gcl_au*NjM4NDUwMDgwLjE3NjU5NjQyODY.*_ga*MTkzOTg4NzczMy4xNzY1OTY0Mjg4*_ga_TR46GG8HLR*czE3NjYxNjgwOTAkbzUkZzEkdDE3NjYxNzA1NTEkajUxJGwwJGgxNzA2NDY1Mjk2">
+                    🛒
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+        <div class="sub-nav">
+            <a href="https://www.newegg.com/Shell-Shocker/EventSaleStore/ID-10381?cm_sp=Head_Navigation-_-Under_Search_Bar-_-Shell+Shocker&icid=720202">Shell Shocker</a>
+            <input type="checkbox" id="line">
+            <label for="line" id="menu">PC Builder</label>
+            <ul class="sub-nav-mid">
+                <li><a href="https://www.newegg.com/tools/gaming-pc-finder/?cm_sp=Head_Navigation-_-Under_Search_Bar-_-Gaming+PC+Finder&icid=768431">Gaming PC Finder</a></li>
+                <li><a href="https://www.newegg.com/tools/pc-upgrader?cm_sp=Head_Navigation-_-Under_Search_Bar-_-PC+Upgrader&icid=784028">PC Upgrader</a></li>
+                <li><a href="https://www.newegg.com/tools/laptop-finder?cm_sp=Head_Navigation-_-Under_Search_Bar-_-Laptop+Finder&icid=779494">Laptop Finder</a></li>
+                <li><a href="https://www.newegg.com/tools/nas-builder?cm_sp=Head_Navigation-_-Under_Search_Bar-_-NAS+Builder&icid=791402">NAS Builder</a></li>
+                <li><a href="https://www.newegg.com/tools/power-supply-calculator?cm_sp=Head_Navigation-_-Under_Search_Bar-_-PSU+Wattage+Calculator&icid=791401">PSU Wattage Calculator</a></li>
+                <li><a href="https://www.newegg.com/server-system-configurator/?cm_sp=Head_Navigation-_-Under_Search_Bar-_-Server+Configurator&icid=791403">Server Configurator</a></li>
+            </ul>
+            <a href="https://www.newegg.com/Clearance-Store/EventSaleStore/ID-697?cm_sp=Head_Navigation-_-Under_Search_Bar-_-Clearance&icid=755812">Clearance</a>
+            <a href="https://www.newegg.com/d/best-sellers?cm_sp=Head_Navigation-_-Under_Search_Bar-_-Best+Sellers&icid=623089">Best Sellers</a>
+        </div>
+    </header>
+    <div class="banner">
+        <h1>Shell Shocker</h1>
+        <p>Amazing deals on top electronics - Limited time only!</p>
+    </div>
+    <div class="container">
+    <div class="product-grid">
+        <div class="product-card">
+            <img  class="product-image" src="https://m.media-amazon.com/images/I/71y4fZH-GmL.jpg">
+            <div class="product-rating">★★★★☆ (245)</div>
+            <h2>Cordless Tire Inflator</h2>
+            <p>Portable Air Compressor, 160 PSI with digital display</p>
+            <div class="savings">Save 50%</div>
+            <div class="product-pricing">
+                <span class="price-current">₹6299</span>
+                <span class="price-old">₹12599</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img  class="product-image" src="https://m.media-amazon.com/images/I/812BZZHeKTL.jpg">
+            <div class="product-rating">★★★★★ (163)</div>
+            <h2>GeForce RTX 5070 Ti</h2>
+            <p>16GB Graphics Card with advanced cooling system</p>
+            <div class="savings">Save 6%</div>
+            <div class="product-pricing">
+                <span class="price-current">₹72099</span>
+                <span class="price-old">₹76899</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img  class="product-image" src="https://www.theitwares.com/image/cache/catalog/1Processor/AMD%203/7800X3D-550x550.jpg">
+            <div class="product-rating">★★★★★ (653)</div>
+            <h2>AMD Ryzen 7 7800X3D</h2>
+            <p>8-Core 4.2 GHz Socket AM5 Desktop Processor</p>
+            <div class="savings">Save 8%</div>
+            <div class="product-pricing">
+                <span class="price-current">₹36999</span>
+                <span class="price-old">₹40499</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img  class="product-image" src="https://m.media-amazon.com/images/I/61csFIV-8eL.jpg">
+            <div class="product-rating">★★★★★ (4)</div>
+            <h2>Acer Aspire Go 15</h2>
+            <p>15.6" Laptop Intel Core i7 16GB RAM 512GB SSD</p>
+            <div class="savings">Save 39%</div>
+            <div class="product-pricing">
+                <span class="price-current">₹44999</span>
+                <span class="price-old">₹73999</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>CUSTOMER SERVICE</h4>
+                <ul>
+                    <li><a href="https://kb.newegg.com/">Help Center</a></li>
+                    <li><a href="https://secure.newegg.com/orders/find?Source=1">Track an Order</a></li>
+                    <li><a href="https://secure.newegg.com/orders/find?Source=2">Return an Item</a></li>
+                    <li><a href="https://www.newegg.com/promotions/nepro/22-0073/index.html?cm_sp=cs_menu-_-return_policy">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>MY ACCOUNT</h4>
+                <ul>
+                    <li><a href="https://secure.newegg.com/login/signin">Login/Register</a></li>
+                    <li><a href="https://secure.newegg.com/orders/list">Order History</a></li>
+                    <li><a href="https://secure.newegg.com/login/signin?nextpage=https%3A%2F%2Fsecure.newegg.com%2FwishList%2Fm">Wish Lists</a></li>
+                    <li><a href="https://secure.newegg.com/notifications/guestemail">Email Notifications</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>COMPANY INFORMATION</h4>
+                <ul>
+                    <li><a href="https://www.newegg.com/corporate/about">About Lumix</a></li>
+                    <li><a href="https://newegg.com/careers">Careers</a></li>
+                    <li><a href="https://kb.newegg.com/knowledge-base/press-inquiries/">Press Inquiries</a></li>
+                    <li><a href="https://investors.newegg.com/newsroom">Newsroom</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>TOOLS & RESOURCES</h4>
+                <ul>
+                    <li><a href="https://www.newegg.com/sellers/?cm_sp=sell_on_newegg_footer">Sell on Lumix</a></li>
+                    <li><a href="https://www.neweggbusiness.com/why-business-account?cm_sp=for_your_business_footer">For your Business</a></li>
+                    <li><a href="https://partner.newegg.com/?cm_sp=newegg_partner_services_footer">Lumix Partner Services</a></li>
+                    <li><a href="https://www.newegg.com/Category">Site Map</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2000-2025 Lumix Inc. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
