@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Even or Odd</title></head>
+  <body>
+    <h2>Even and Odd Number Checker</h2>
+    <label>Enter a number: <input type="number" id="n"></label>
+    <br><br>
+    <button onclick="check()">Check</button>
+    <p id="result"></p>
+    <script>
+      function check() {
+        const n = parseInt(document.getElementById('n').value);
+        if (n % 2 === 0) {
+          document.getElementById('result').textContent = n + ' is Even';
+        } else {
+          document.getElementById('result').textContent = n + ' is Odd';
+        }
+      }
+    </script>
+  </body>
+</html>
